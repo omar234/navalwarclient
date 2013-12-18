@@ -80,16 +80,16 @@ public class ClientNetworkModule implements IClientNetworkModule {
         return WarID++;
 	}
 
-	public int startWar(int warID) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	public List<IWarInfo> getWarsList() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	public int regArmy(int warID, String name, List<UnitAndPlace> unitsAndPlaces) {
    	 String message = "";
 		try {
@@ -102,21 +102,67 @@ public class ClientNetworkModule implements IClientNetworkModule {
         return WarID; //To change body of implemented methods use File | Settings | File Templates.
    }
 
+
     public int shot(int warID, int attackArmyID, int targetArmyID, int row,
 			int col) {
-		// TODO Auto-generated method stub
+    	 String message = "";
+ 		try {
+             message = "SHOT:" + warID + ":" + attackArmyID+ ":" + targetArmyID + ":" +row + ":"+col+"\n";
+             outToServer.writeBytes(message);
+//             outToServer.flush(); 
+         }catch (Exception e){
+             System.out.println("No se pudo efectuar el disparo " + e.getMessage());
+         }
 		return 0;
 	}
 
 	public IWarInfo getWarInfo(int warID) {
-		// TODO Auto-generated method stub
+		   String message = "";
+			try {
+	            message = "GWInfo:" + warID + "\n";
+	            outToServer.writeBytes(message);
+//	            outToServer.flush(); 
+	        }catch (Exception e){
+	            System.out.println("No se pudo obtener informacion sobre la guerra " + e.getMessage());
+	        }
 		return null;
 	}
 
 	public IArmyInfo getArmyInfo(int warID, int armyID) {
-		// TODO Auto-generated method stub
+		   String message = "";
+			try {
+	            message = "GAInfo:" + warID + ":" + armyID+ ":"+"\n";
+	            outToServer.writeBytes(message);
+//	            outToServer.flush(); 
+	        }catch (Exception e){
+	            System.out.println("No se pudo obtener informacion sobre el ejercito " + e.getMessage());
+	        }
 		return null;
 	}
+	public int startWar(int warID) {
+		 String message = "";
+			try {
+	            message = "SRT_WAR:" +"\n";
+	            outToServer.writeBytes(message);
+//	            outToServer.flush();
+	        }catch (Exception e){
+	            System.out.println("No se pudo iniciar la guerra " + e.getMessage());
+	        }
+		return 0;
+	}
+
+	public List<IWarInfo> getWarsList() {
+		 String message = "";
+			try {
+	            message = "GWList:" +"\n";
+	            outToServer.writeBytes(message);
+//	            outToServer.flush();
+	        }catch (Exception e){
+	            System.out.println("No se pudo obtener la lista de guerras " + e.getMessage());
+	        }
+		return null;
+	}
+
 
 
 }
