@@ -90,9 +90,17 @@ public class ClientNetworkModule implements IClientNetworkModule {
 		return null;
 	}
 
-    public int regArmy(int warID, String name, List<UnitAndPlace> unitsAndPlaces) {
-        return 0;  //To change body of implemented methods use File | Settings | File Templates.
-    }
+	public int regArmy(int warID, String name, List<UnitAndPlace> unitsAndPlaces) {
+   	 String message = "";
+		try {
+            message = "REG_AR:" + name + ":" +warID+ ":"+unitsAndPlaces+ ":EOM"+"\n";
+            outToServer.writeBytes(message);
+//            outToServer.flush(); 
+        }catch (Exception e){
+            System.out.println("No se pudo registrar la armada " + e.getMessage());
+        }
+        return WarID; //To change body of implemented methods use File | Settings | File Templates.
+   }
 
     public int shot(int warID, int attackArmyID, int targetArmyID, int row,
 			int col) {
